@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(tokens <= balances[msg.sender],line 59 token)
+
+IRs:
+REF_0(uint256) -> balances[msg.sender]
+TMP_0(bool) = tokens <= REF_0
+TMP_2 = SOLIDITY_CALL require(bool,string)(TMP_0,line 59 token)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_transfer(msg.sender,_to,tokens)
+
+IRs:
+TMP_3(bool) = INTERNAL_CALL, AmazingToken._transfer(address,address,uint256)(msg.sender,_to,tokens)"];
+}

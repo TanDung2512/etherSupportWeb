@@ -1,0 +1,54 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+name = amazing
+
+IRs:
+name(string) := amazing(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+symbol = AMZ
+
+IRs:
+symbol(string) := AMZ(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint8) := 18(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_totalSupply = 1000000000000
+
+IRs:
+_totalSupply(uint256) := 1000000000000(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+balances[msg.sender] = _totalSupply
+
+IRs:
+REF_12(uint256) -> balances[msg.sender]
+REF_12 (->balances) := _totalSupply(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(address(0),msg.sender,_totalSupply)
+
+IRs:
+TMP_17 = CONVERT 0 to address
+Emit Transfer(TMP_17.msg.sender._totalSupply)"];
+}

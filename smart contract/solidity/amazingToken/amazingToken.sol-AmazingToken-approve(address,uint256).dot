@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+allowed[msg.sender][_spender] = tokens
+
+IRs:
+REF_1(mapping(address => uint256)) -> allowed[msg.sender]
+REF_2(uint256) -> REF_1[_spender]
+REF_2 (->allowed) := tokens(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Approval(msg.sender,_spender,tokens)
+
+IRs:
+Emit Approval(msg.sender._spender.tokens)"];
+}

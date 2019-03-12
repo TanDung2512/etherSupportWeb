@@ -1,0 +1,55 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(allowed[_from][_to] <= tokens,line 64 token)
+
+IRs:
+REF_3(mapping(address => uint256)) -> allowed[_from]
+REF_4(uint256) -> REF_3[_to]
+TMP_6(bool) = REF_4 <= tokens
+TMP_8 = SOLIDITY_CALL require(bool,string)(TMP_6,line 64 token)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(msg.sender == _to,line 65 token)
+
+IRs:
+TMP_9(bool) = msg.sender == _to
+TMP_11 = SOLIDITY_CALL require(bool,string)(TMP_9,line 65 token)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(tokens <= balances[_from],line 66 token)
+
+IRs:
+REF_5(uint256) -> balances[_from]
+TMP_12(bool) = tokens <= REF_5
+TMP_14 = SOLIDITY_CALL require(bool,string)(TMP_12,line 66 token)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+allowed[_from][_to] = allowed[_from][_to] - tokens
+
+IRs:
+REF_6(mapping(address => uint256)) -> allowed[_from]
+REF_7(uint256) -> REF_6[_to]
+REF_8(mapping(address => uint256)) -> allowed[_from]
+REF_9(uint256) -> REF_8[_to]
+TMP_15(uint256) = REF_9 - tokens
+REF_7 (->allowed) := TMP_15(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_transfer(_from,_to,tokens)
+
+IRs:
+TMP_16(bool) = INTERNAL_CALL, AmazingToken._transfer(address,address,uint256)(_from,_to,tokens)"];
+}

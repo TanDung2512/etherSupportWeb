@@ -1,0 +1,171 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender == _from && msg.value == ether_amount,line 72)
+
+IRs:
+TMP_0(bool) = msg.sender == _from
+TMP_1(bool) = msg.value == ether_amount
+TMP_2(bool) = TMP_0 && TMP_1
+TMP_4 = SOLIDITY_CALL require(bool,string)(TMP_2,line 72)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+transactionInfo[_from][_to].exist == true
+
+IRs:
+REF_0(mapping(address => escrow.transaction)) -> transactionInfo[_from]
+REF_1(escrow.transaction) -> REF_0[_to]
+REF_2(bool) -> REF_1.exist
+TMP_5(bool) = REF_2 == true
+CONDITION TMP_5"];
+2->3;
+2->14;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+currentTransaction = transactionInfo[_from][_to]
+
+IRs:
+REF_3(mapping(address => escrow.transaction)) -> transactionInfo[_from]
+REF_4(escrow.transaction) -> REF_3[_to]
+currentTransaction(escrow.transaction) := REF_4(escrow.transaction)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+currentTransaction.eth_amount = msg.value
+
+IRs:
+REF_5(uint256) -> currentTransaction.eth_amount
+REF_5 (->currentTransaction) := msg.value(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+currentTransaction.approve_Eth = true
+
+IRs:
+REF_6(bool) -> currentTransaction.approve_Eth
+REF_6 (->currentTransaction) := true(string)"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+currentTransaction.approve_Eth == true && currentTransaction.approve_Token == true
+
+IRs:
+REF_7(bool) -> currentTransaction.approve_Eth
+TMP_6(bool) = REF_7 == true
+REF_8(bool) -> currentTransaction.approve_Token
+TMP_7(bool) = REF_8 == true
+TMP_8(bool) = TMP_6 && TMP_7
+CONDITION TMP_8"];
+6->7;
+6->13;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+AmazingTokenInterface(currentTransaction.addressToken).transfer(currentTransaction.sendEthAddress,currentTransaction.token_amount)
+
+IRs:
+REF_9(address) -> currentTransaction.addressToken
+TMP_9 = CONVERT REF_9 to AmazingTokenInterface
+REF_11(address) -> currentTransaction.sendEthAddress
+REF_12(uint256) -> currentTransaction.token_amount
+TMP_11(bool) = HIGH_LEVEL_CALL, dest:TMP_9(AmazingTokenInterface), function:transfer, arguments:['REF_11', 'REF_12']  "];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+TokenerAddress = currentTransaction.sendTokenAddress
+
+IRs:
+REF_13(address) -> currentTransaction.sendTokenAddress
+TokenerAddress(address) := REF_13(address)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+TokenerAddress.transfer(currentTransaction.eth_amount)
+
+IRs:
+REF_15(uint256) -> currentTransaction.eth_amount
+Transfer dest:TokenerAddress value:REF_15"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+currentTransaction.eth_amount = 0
+
+IRs:
+REF_16(uint256) -> currentTransaction.eth_amount
+REF_16 (->currentTransaction) := 0(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+currentTransaction.token_amount = 0
+
+IRs:
+REF_17(uint256) -> currentTransaction.token_amount
+REF_17 (->currentTransaction) := 0(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+currentTransaction.exist = false
+
+IRs:
+REF_18(bool) -> currentTransaction.exist
+REF_18 (->currentTransaction) := false(string)"];
+12->13;
+13[label="Node Type: END_IF 13
+"];
+13->18;
+14[label="Node Type: NEW VARIABLE 14
+
+EXPRESSION:
+nullAddress = address(0x0)
+
+IRs:
+TMP_14 = CONVERT 0x0 to address
+nullAddress(address) := TMP_14(address)"];
+14->15;
+15[label="Node Type: NEW VARIABLE 15
+
+EXPRESSION:
+newTransaction = transaction(_from,_to,msg.value,0,true,true,false,nullAddress)
+
+IRs:
+TMP_16 = new transaction(_from,_to,msg.value,0,true,true,false,nullAddress)
+newTransaction(escrow.transaction) := TMP_16(escrow.transaction)"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+transactionInfo[_from][_to] = newTransaction
+
+IRs:
+REF_19(mapping(address => escrow.transaction)) -> transactionInfo[_from]
+REF_20(escrow.transaction) -> REF_19[_to]
+REF_20 (->transactionInfo) := newTransaction(escrow.transaction)"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+transactionInfo[_to][_from] = newTransaction
+
+IRs:
+REF_21(mapping(address => escrow.transaction)) -> transactionInfo[_to]
+REF_22(escrow.transaction) -> REF_21[_from]
+REF_22 (->transactionInfo) := newTransaction(escrow.transaction)"];
+17->18;
+18[label="Node Type: END_IF 18
+"];
+}
